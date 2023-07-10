@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -50,8 +49,10 @@ class _WebViewScreenState extends State<WebViewScreen> {
       )
       ..loadRequest(Uri.parse(widget.webLink));
     return Scaffold(
-      body: WebViewWidget(
-        controller: controller,
+      body: SafeArea(
+        child: WebViewWidget(
+          controller: controller,
+        ),
       ),
     );
   }
