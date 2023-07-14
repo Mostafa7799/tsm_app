@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../widget/custom_dialog.dart';
+
 class WebViewScreen extends StatefulWidget {
   const WebViewScreen({
     Key? key,
@@ -48,10 +50,23 @@ class _WebViewScreenState extends State<WebViewScreen> {
         ),
       )
       ..loadRequest(Uri.parse(widget.webLink));
-    return Scaffold(
-      body: SafeArea(
-        child: WebViewWidget(
-          controller: controller,
+    return WillPopScope(
+      onWillPop: () async {
+        bool? isGoBack = await checkDialog(context, 'Are you sure to go back?',);
+        if (isGoBack != null) {
+          if (isGoBack) {
+            return Future.value(true);
+          } else {
+            return Future.value(false);
+          }
+        }
+        return Future.value(false);
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: WebViewWidget(
+            controller: controller,
+          ),
         ),
       ),
     );
