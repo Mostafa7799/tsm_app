@@ -13,14 +13,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer(
       const Duration(seconds: 3),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (conteSxt) => const WebViewScreen(webLink: 'https://tsmedu.net/'),
+          builder: (conteSxt) =>
+              const WebViewScreen(webLink: 'https://tsmedu.net/'),
         ),
       ),
     );
