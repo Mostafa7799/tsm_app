@@ -14,6 +14,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  
 
 
 
@@ -21,11 +23,18 @@ dependencies:
   webview_flutter: ^4.2.1
   cool_alert: ^2.0.1
   lottie: ^2.4.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons.png"
+  min_sdk_android: 21
 
   flutter_lints: ^2.0.0
 
@@ -38,4 +47,5 @@ flutter:
   assets:
     - assets/
     - assets/warning.json
+    - assets/icons.png
 

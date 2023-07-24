@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-      const Duration(seconds: 3),
+      const Duration(seconds: 4),
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -29,18 +29,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          height: 300,
-          width: double.infinity,
-          margin: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                'assets/logo.jpg',
-              ),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 50.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: Center(
+                  child: Image.asset(
+                'assets/logo.png',
+                height: 200,
+                width: 210,
+              )),
             ),
-          ),
+            const Text(
+              "Total system school management",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 71, 71, 71), fontSize: 20),
+            ),
+            const Text(
+              "TSM@Echo 2024",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 71, 71, 71), fontSize: 16),
+            ),
+          ],
         ),
       ),
     );

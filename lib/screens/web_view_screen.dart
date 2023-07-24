@@ -70,7 +70,6 @@ class _WebViewScreenState extends State<WebViewScreen> {
         body: SafeArea(
           child: WebViewWidget(
             controller: controller,
-            
           ),
         ),
       ),
