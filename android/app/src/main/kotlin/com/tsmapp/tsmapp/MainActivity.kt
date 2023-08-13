@@ -1,4 +1,4 @@
-package com.example.tsm_app
+package com.tsmapp.tsmapp
 
 import io.flutter.embedding.android.FlutterActivity
 

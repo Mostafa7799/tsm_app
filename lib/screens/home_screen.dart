@@ -10,23 +10,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff000f26),
-        title: const Text(
-          'TSM',
-        ),
-        centerTitle: true,
-      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
             children: [
+              SizedBox(
+                height: 20,
+              ),
+              Image.asset(
+                'assets/logo.png',
+                height: 200,
+              ),
+              SizedBox(
+                height: 40,
+              ),
               CustomButton(
-                onTap: ()async{
-                  await Navigator.pushReplacement(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const WebViewScreen(
@@ -38,8 +39,8 @@ class HomeScreen extends StatelessWidget {
                 title: 'Teacher',
               ),
               CustomButton(
-                onTap: ()async{
-                  await Navigator.pushReplacement(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const WebViewScreen(
@@ -51,8 +52,8 @@ class HomeScreen extends StatelessWidget {
                 title: 'Student',
               ),
               CustomButton(
-                onTap: ()async{
-                  await Navigator.pushReplacement(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const WebViewScreen(

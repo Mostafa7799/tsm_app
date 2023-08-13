@@ -20,9 +20,9 @@ class CustomButton extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-            color: const Color(0xff000f26),
+            color: const Color(0xff025898),
             borderRadius: BorderRadius.circular(15)),
-        child:  Center(
+        child: Center(
           child: Text(
             title,
             style: const TextStyle(color: Colors.white, fontSize: 22),

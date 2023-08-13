@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:tsm_app/screens/home_screen.dart';
 import 'package:tsm_app/screens/web_view_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           builder: (conteSxt) =>
-              const WebViewScreen(webLink: 'https://tsmedu.net/'),
+              const HomeScreen(),
         ),
       ),
     );
