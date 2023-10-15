@@ -14,16 +14,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
-  
-
-
 
   cupertino_icons: ^1.0.2
-  webview_flutter: ^4.2.1
+  flutter_webview_pro: ^3.0.1+4
   cool_alert: ^2.0.1
   lottie: ^2.4.0
   change_app_package_name: ^1.1.0
+  permission_handler: ^11.0.1
   
 
 dev_dependencies:

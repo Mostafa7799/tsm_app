@@ -63,5 +63,4 @@ Future<dynamic> checkDialog([
         loopAnimation: false,
         onConfirmBtnTap: () {
           exit(0);
-          return Navigator.pop(context, true);
         });

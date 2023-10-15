@@ -1,6 +1,8 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_webview_pro/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
   const WebViewScreen({
@@ -14,65 +16,57 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
+    final Completer<WebViewController> controller =
+      Completer<WebViewController>();
+
   @override
   void initState() {
     super.initState();
-
-    // #docregion platform_features
-    late final PlatformWebViewControllerCreationParams params;
-    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      params = WebKitWebViewControllerCreationParams(
-        allowsInlineMediaPlayback: true,
-        mediaTypesRequiringUserAction: const <PlaybackMediaTypes>{},
-      );
-    } else {
-      params = const PlatformWebViewControllerCreationParams();
+    if (Platform.isAndroid) {
+      WebView.platform = SurfaceAndroidWebView();
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    WebViewController controller;
-    controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onPageStarted: (url) {},
-          onProgress: (progress) {},
-          onPageFinished: (url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) async {
+  Widget build(BuildContext context) { 
+    return Scaffold(
+      body: SafeArea(
+        child: Builder(builder: (BuildContext context) {
+        return WebView(
+          initialUrl: widget.webLink,
+          javascriptMode: JavascriptMode.unrestricted,
+          onWebViewCreated: (WebViewController webViewController) {
+            controller.complete(webViewController);
+          },
+          onProgress: (int progress) {
+            print('WebView is loading (progress : $progress%)');
+          },
+          
+          navigationDelegate: (NavigationRequest request) {
+            if (request.url.startsWith('https://tsmedu.net')) {
+              print('blocking navigation to $request}');
+              return NavigationDecision.prevent;
+            }
+            print('allowing navigation to $request');
             return NavigationDecision.navigate;
           },
-        ),
-      )
-      ..loadRequest(Uri.parse(widget.webLink));
-    return WillPopScope(
-      onWillPop: () async {
-        // bool? isGoBack = await checkDialog(context, 'Are you sure to go back?',);
-        // if (isGoBack != null) {
-        //   if (isGoBack) {
-        //     return Future.value(true);
-        //   } else {
-        //     return Future.value(false);
-        //   }
-        // }
-        // return Future.value(false);
-        if (await controller.canGoBack()) {
-          controller.goBack();
-          return false;
-        } else {
-          return true;
-        }
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: WebViewWidget(
-            controller: controller,
-          ),
-        ),
+          onPageStarted: (String url) {
+            print('Page started loading: $url');
+          },
+          onPageFinished: (String url) {
+            print('Page finished loading: $url');
+          },
+          gestureNavigationEnabled: true,
+          backgroundColor: const Color(0x00000000),
+          geolocationEnabled: true,
+        );
+      }),
       ),
     );
   }
+
+  
 }
+
+     
+  
