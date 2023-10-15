@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tsmapp.tsmapp",
+      "sha256_cert_fingerprints":
+      ["AB:6D:B9:1C:14:A5:E9:86:B6:ED:58:A1:67:32:B2:3A:FF:99:30:D0:C2:EA:16:A1:2C:77:20:0D:C1:9A:9B:98"]
+    }
+  }
+]
