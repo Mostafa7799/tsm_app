@@ -16,8 +16,10 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
-    final Completer<WebViewController> controller =
-      Completer<WebViewController>();
+  final Completer<WebViewController> controller =
+  Completer<WebViewController>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  late WebViewController _webViewController;
 
   @override
   void initState() {
@@ -28,45 +30,54 @@ class _WebViewScreenState extends State<WebViewScreen> {
   }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Builder(builder: (BuildContext context) {
-        return WebView(
-          initialUrl: widget.webLink,
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-            controller.complete(webViewController);
-          },
-          onProgress: (int progress) {
-            print('WebView is loading (progress : $progress%)');
-          },
-          
-          navigationDelegate: (NavigationRequest request) {
-            if (request.url.startsWith('https://tsmedu.net')) {
-              print('blocking navigation to $request}');
-              return NavigationDecision.prevent;
-            }
-            print('allowing navigation to $request');
-            return NavigationDecision.navigate;
-          },
-          onPageStarted: (String url) {
-            print('Page started loading: $url');
-          },
-          onPageFinished: (String url) {
-            print('Page finished loading: $url');
-          },
-          gestureNavigationEnabled: true,
-          backgroundColor: const Color(0x00000000),
-          geolocationEnabled: true,
-        );
-      }),
+      key: _scaffoldKey,
+      body: WillPopScope(
+        onWillPop: () async {
+          if (await _webViewController.canGoBack()) {
+            _webViewController.goBack();
+            return false;
+          } else {
+            return true;
+          }
+        },
+        child: SafeArea(
+          child: Builder(builder: (BuildContext context) {
+            return WebView(
+              initialUrl: widget.webLink,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) {
+                controller.complete(webViewController);
+                _webViewController = webViewController;
+              },
+              onProgress: (int progress) {
+                print('WebView is loading (progress: $progress%)');
+              },
+              navigationDelegate: (NavigationRequest request) {
+                if (request.url.startsWith('https://tsmedu.net')) {
+                  print('Blocking navigation to $request');
+                  return NavigationDecision.prevent;
+                }
+                print('Allowing navigation to $request');
+                return NavigationDecision.navigate;
+              },
+              onWebResourceError: (WebResourceError error) {
+                print('Web resource error: $error');
+              },
+              gestureNavigationEnabled: true,
+              backgroundColor: const Color(0x00000000),
+              geolocationEnabled: true,
+              onPageStarted: (String url) {
+                print('Page started loading: $url');
+              },
+              onPageFinished: (String url) {
+                print('Page finished loading: $url');
+              },
+            );
+          }),
+        ),
       ),
     );
   }
-
-  
 }
-
-     
-  

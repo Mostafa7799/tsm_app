@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tsm_app/const.dart';
 import 'package:tsm_app/screens/web_view_screen.dart';
-
 import '../widget/custom_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const WebViewScreen(
+                      builder: (context) => WebViewScreen(
                         webLink: teacherLink,
                       ),
                     ),
@@ -43,7 +42,7 @@ class HomeScreen extends StatelessWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const WebViewScreen(
+                      builder: (context) => WebViewScreen(
                         webLink: studentLink,
                       ),
                     ),
@@ -56,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const WebViewScreen(
+                      builder: (context) => WebViewScreen(
                         webLink: parentLink,
                       ),
                     ),
